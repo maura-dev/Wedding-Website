@@ -1,0 +1,24 @@
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+.nav-link:hover { color: #C9A84C !important; }
+.hamburger-line {
+display: block; width: 22px; height: 2px;
+background: currentColor; border-radius: 2px;
+transition: transform 0.3s, opacity 0.3s;
+}
+
+html,body{
+    scroll-behavior: smooth;
+}
+
+#nav-desktop { display: flex; }
+
+#nav-hamburger { display: none !important; }
+
+@media (max-width: 768px) {
+  #nav-desktop { display: none !important; }
+  #nav-hamburger { display: flex !important; }
+}

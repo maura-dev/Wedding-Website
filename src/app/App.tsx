@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {
-  Heart, MapPin, Gift, ChevronLeft, ChevronRight,
-  Calendar, Send, RefreshCw, Trophy, Star, X, ShoppingBag, ExternalLink
+  Heart, Gift, ChevronLeft, ChevronRight,
+  Calendar, RefreshCw, Trophy, Star, X, ShoppingBag, ExternalLink
 } from "lucide-react";
 import { Story } from "./components/sections/how-we-met";
 import puzzleImg from "./components/assets/IMG_1762.jpeg";
@@ -30,8 +30,8 @@ import { Wishes } from "./components/sections/wishes";
 // ─── Data ──────────────────────────────────────────────────────────────────
 
 const NAV_LINKS = [
-  { label: "Our Story", href: "#story" },
   { label: "Gallery", href: "#gallery" },
+  { label: "Our Story", href: "#story" },
   { label: "Programme", href: "#programme" },
   { label: "Registry", href: "#registry" },
   { label: "Wishes", href: "#wishes" },
@@ -240,12 +240,12 @@ export default function App() {
 
   // Nav scroll
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-
 
   const activeReg = REGISTRY.find(r => r.store === activeRegistry);
   const activeItems = activeRegistry ? (REGISTRY_ITEMS[activeRegistry] ?? []) : [];
@@ -277,6 +277,55 @@ export default function App() {
             style={{ background: "#C9A84C", color: "#1A4731" }}>
             Send Wishes ❤️
           </a>
+           {/* Hamburger — mobile only */}
+          <button
+            id="nav-hamburger"
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            style={{ 
+              background: "none", border: "none", cursor: "pointer", 
+              color: scrolled ? "rgba(255,255,255,0.75)" : "rgb(26, 71, 49)", 
+              padding: "0.5rem", display: "flex", flexDirection: "column", gap: 5 }}
+          >
+            <span className="hamburger-line" style={{ transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none" }} />
+            <span className="hamburger-line" style={{ opacity: menuOpen ? 0 : 1 }} />
+            <span className="hamburger-line" style={{ transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none" }} />
+          </button>
+
+            {/* Mobile drawer */}
+            {menuOpen && (
+              <div style={{
+                position: "absolute", top: 64, left: 0, right: 0,
+                background: "rgba(13,43,29,0.98)",
+                backdropFilter: "blur(12px)",
+                padding: "1.5rem 2rem 2rem",
+                animation: "slideDown 0.25s ease",
+                borderTop: `1px solid ${COLORS.gold}33`,
+              }}>
+                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                  {NAV_LINKS.map((l) => (
+                    <li key={l.href}>
+                      <a
+                        href={l.href}
+                        onClick={() => setMenuOpen(false)}
+                        style={{ display: "block", padding: "0.85rem 0", textDecoration: "none", color: "rgba(255,255,255,0.75)", fontSize: "0.875rem", fontWeight: 600,  borderBottom: `1px solid ${COLORS.gold}18`, transition: "color 0.2s" }}
+                        onMouseEnter={e => e.currentTarget.style.color = COLORS.gold}
+                        onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.75)"}
+                      >
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#wishes"
+                  onClick={() => setMenuOpen(false)}
+                  style={{ display: "block", marginTop: "1.5rem", padding: "0.85rem", borderRadius: 999, textAlign: "center", background: COLORS.gold, color: "#1A4731", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none", fontFamily: "'DM Sans',sans-serif" }}
+                >
+                  Send Wishes ❤️
+                </a>
+              </div>
+            )}
         </div>
       </nav>
 
@@ -328,11 +377,11 @@ export default function App() {
           </div>
 
           <div className="mt-10 flex gap-4 justify-center flex-wrap">
-            <a href="#story" className="px-8 py-3 rounded-full font-bold text-sm tracking-wide transition-all hover:scale-105"
+            <a href="#story" className="px-8 py-2 lg:py-3 rounded-full font-bold text-sm tracking-wide transition-all hover:scale-105"
               style={{ background: "#C9A84C", color: "#1A4731" }}>
               Our Story
             </a>
-            <a href="#programme" className="px-8 py-3 rounded-full font-semibold text-sm tracking-wide transition-all hover:bg-white/10"
+            <a href="#programme" className="px-8 py-2 lg:py-3 rounded-full font-semibold text-sm tracking-wide transition-all hover:bg-white/10"
               style={{ border: "1px solid rgba(201,168,76,0.5)", color: "#C9A84C" }}>
               View Programme
             </a>

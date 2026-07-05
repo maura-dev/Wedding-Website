@@ -1,7 +1,90 @@
 
 // ─── Story ───────────────────────────────────────────────────────────────────
- import { COLORS, styles } from "../utils/consts";
+ import { useEffect, useRef, useState } from "react";
+import { COLORS, styles } from "../utils/consts";
+
+ // 10 lines at 1.9 line-height and ~0.95rem ≈ 18.05px per line → ~180px
+ const COLLAPSED_HEIGHT = 382;
+
+ function StoryCard({ s }: { s: any }) {
+  const [expanded, setExpanded] = useState(false);
+  const [needsClamp, setNeedsClamp] = useState(false);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+ 
+  useEffect(() => {
+    if (contentRef.current) {
+      setNeedsClamp(contentRef.current.scrollHeight > COLLAPSED_HEIGHT + 4);
+    }
+  }, []);
+ 
+  return (
+    <div key={s.who} style={{ position: "relative" }}>
+      <div style={{ position: "absolute", top: 0, left: 0, width: 3, height: "100%", background: `linear-gradient(to bottom,${COLORS.gold},transparent)` }} />
+      <div style={{ paddingLeft: "1.5rem" }}>
+        <p style={{ fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: COLORS.gold, marginBottom: "0.75rem", fontWeight: 500 }}>{s.who}</p>
+        <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.8rem", fontStyle: "italic", color: COLORS.deep, marginBottom: "1.2rem", lineHeight: 1 }}>{s.name}</h3>
+          {/* Collapsible text area */}
+          <div style={{ position: "relative" }}>
+            <div
+              ref={contentRef}
+              style={{
+                maxHeight: expanded ? "none" : COLLAPSED_HEIGHT,
+                overflow: "hidden",
+                transition: "max-height 0.5s ease",
+              }}
+            >
+              {s.text.map((p:any, i:any) => (
+                <p key={i} style={{ color: COLORS.muted, fontSize: "0.95rem", lineHeight: 1.9, marginTop: i > 0 ? "1rem" : 0, marginBottom: 0 }}>{p}</p>
+              ))}
+            </div>
+  
+            {/* Fade overlay when collapsed */}
+            {needsClamp && !expanded && (
+              <div style={{
+                position: "absolute", bottom: 0, left: 0, right: 0,
+                height: 64,
+                background: `linear-gradient(to bottom, transparent, ${COLORS.cream})`,
+                pointerEvents: "none",
+              }} />
+            )}
+          </div>
+  
+          {/* Read more / less button */}
+          {needsClamp && (
+            <button
+              onClick={() => setExpanded(e => !e)}
+              style={{
+                background: "none",
+                border: "none",
+                padding: "0.6rem 0 0",
+                cursor: "pointer",
+                color: COLORS.gold,
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontFamily: "'DM Sans',sans-serif",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+            >
+              {expanded ? "Read less" : "Read more"}
+              <span style={{
+                display: "inline-block",
+                transition: "transform 0.3s",
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+                fontSize: "0.7rem",
+              }}>▼</span>
+            </button>
+          )}
+      </div>
+    </div>
+  )
+ }
+
 export function Story() {
+  
     const stories = [
       {
         who: "From the bride",
@@ -31,7 +114,7 @@ export function Story() {
         ],
       },
     ];
-   
+
     return (
       <section id="story" style={{ background: COLORS.cream, padding: "6rem 2rem" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
@@ -43,17 +126,8 @@ export function Story() {
           <div style={styles.goldRule} />
    
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "4rem" }}>
-            {stories.map((s) => (
-              <div key={s.who} style={{ position: "relative" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, width: 3, height: "100%", background: `linear-gradient(to bottom,${COLORS.gold},transparent)` }} />
-                <div style={{ paddingLeft: "1.5rem" }}>
-                  <p style={{ fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: COLORS.gold, marginBottom: "0.75rem", fontWeight: 500 }}>{s.who}</p>
-                  <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.8rem", fontStyle: "italic", color: COLORS.deep, marginBottom: "1.2rem", lineHeight: 1 }}>{s.name}</h3>
-                  {s.text.map((p, i) => (
-                    <p key={i} style={{ color: COLORS.muted, fontSize: "0.95rem", lineHeight: 1.9, marginTop: i > 0 ? "1rem" : 0 }}>{p}</p>
-                  ))}
-                </div>
-              </div>
+            {stories.map((s:any, i) => (
+              <StoryCard s={s} key={i}/>
             ))}
           </div>
         </div>
