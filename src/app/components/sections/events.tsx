@@ -11,7 +11,7 @@ const EVENTS = [
       name: "Traditional wedding",
       date: "Thursday, 20 August 2026",
       time: "10:00 AM — onwards",
-      venue: "Nduneri Family Compound, Anambra State",
+      venue: "Ihiala, Anambra State",
       note: "Igba nkwu nwanyi ceremony, wine carrying & traditional rites",
     },
     {
@@ -29,7 +29,7 @@ const EVENTS = [
       name: "Reception",
       date: "Saturday, 22 August 2026",
       time: "After church ceremony",
-      venue: "Enugu state",
+      venue: "Sylvia Hotel, Enugu state",
       note: "Come and celebrate with us!",
     },
   ];

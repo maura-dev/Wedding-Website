@@ -85,8 +85,8 @@ const REGISTRY_ITEMS: Record<string, RegistryItem[]> = {
 const VENDOR_LINKS: Record<string, { ig: string; wa: string; waMsg: string }> = {
   "Kitchenware": {
     ig: "https://www.instagram.com/dees_homeessentials?igsh=MTVidHNxamtxc2pxcQ%3D%3D&utm_source=qr",
-    wa: "https://wa.me/qr/ZCIWI6OIZLQ4O1",
-    waMsg: "Hello! I'd like to purchase an item from you. Can you help me?",
+    wa: "https://wa.me/2349161485137",
+    waMsg: "Hello! I'd like to purchase an item from you. I was referred by Chinwendu. Can you help me?",
   },
 };
 
@@ -368,9 +368,9 @@ export default function App() {
           <h1 className="font-bold leading-none" style={{ fontFamily: "Playfair Display, Georgia, serif", fontSize: "clamp(3.0rem, 10vw, 7rem)", color: "#ffffff" }}>
             Chinwendu
           </h1>
-          <p className="mt-4 text-sm font-semibold tracking-[0.25em]" style={{ color: "rgba(255,255,255,0.45)" }}>
+          {/* <p className="mt-4 text-sm font-semibold tracking-[0.25em]" style={{ color: "rgba(255,255,255,0.45)" }}>
             AITONJE · NDUNERI
-          </p>
+          </p> */}
           <div className="flex items-center justify-center gap-3 mt-5 text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
             <Calendar size={14} style={{ color: "#C9A84C" }} />
             <span className="tracking-wide">22nd August, 2026 · Enugu, Nigeria</span>
@@ -564,9 +564,9 @@ export default function App() {
                     <div className="p-3 flex flex-col flex-1">
                       <p className="font-bold text-sm leading-snug mb-1" style={{ color: "#1A4731" }}>{item.name}</p>
                       {item.note && <p className="text-xs" style={{ color: "rgba(60,35,20,0.5)" }}>{item.note}</p>}
-                      <div className="mt-auto pt-2" style={{ borderTop: "1px solid rgba(201,168,76,0.15)" }}>
+                      {/* <div className="mt-auto pt-2" style={{ borderTop: "1px solid rgba(201,168,76,0.15)" }}>
                         <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(201,168,76,0.1)", color: "#7A5F20" }}>Any vendor welcome</span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}
@@ -819,7 +819,7 @@ export default function App() {
           Edo meets Igbo · Two cultures, one love · Nigeria celebrates 🇳🇬
         </p>
         <p className="text-xs" style={{ color: "rgba(255,255,255,0.15)" }}>
-          Crafted by Anyanwu Maureen for the Aitonje–Nduneri Wedding 2026
+          Crafted by Maureen for Eguakhide & Chinwendu's Wedding 2026
         </p>
       </footer>
     </div>
